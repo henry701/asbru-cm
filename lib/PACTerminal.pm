@@ -3,7 +3,7 @@ package PACTerminal;
 ###############################################################################
 # This file is part of Ásbrú Connection Manager
 #
-# Copyright (C) 2017-2021 Ásbrú Connection Manager team (https://asbru-cm.net)
+# Copyright (C) 2017-2022 Ásbrú Connection Manager team (https://asbru-cm.net)
 # Copyright (C) 2010-2016 David Torrejón Vaquerizas
 #
 # Ásbrú Connection Manager is free software: you can redistribute it and/or
@@ -532,6 +532,10 @@ sub stop {
         if ($$self{CONNECTED}) {
             $self->_wPrePostExec('local after');
         }
+    }
+
+    if ($$self{_CLUSTER} ne '') {
+        $PACMain::FUNCS{_CLUSTER}->delFromCluster($$self{_UUID_TMP}, $$self{_CLUSTER});
     }
 
     # Send any configured keypress to close the forked binary
